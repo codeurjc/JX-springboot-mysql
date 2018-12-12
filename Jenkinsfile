@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label "jenkins-maven"
+    label "urjc-dev-env"
   }
   environment {
     ORG = 'codeurjc'

@@ -52,6 +52,18 @@ pipeline {
         }
       }
     }
+    stage('Unitary test...') {
+      when {
+        branch 'master'
+      }
+      steps {
+        container('maven') {
+          sh """
+            mvn --batch-mode -Dtest=SpringBootMySqlApplicationTests -Dspring.datasource.url=jdbc:mysql://127.0.0.1:3306/springboot_mysql_example test
+          """
+        }
+      }
+    }
     stage('Promote to Environments') {
       when {
         branch 'master'

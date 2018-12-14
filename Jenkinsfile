@@ -44,9 +44,9 @@ pipeline {
 
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
-          sh "mvn versions:set -DnewVersion=\$(cat VERSION)"
+          sh "mvn --batch-mode versions:set -DnewVersion=\$(cat VERSION)"
           sh "jx step tag --version \$(cat VERSION)"
-          sh "mvn -DskipTests=true clean deploy"
+          sh "mvn --batch-mode -DskipTests=true clean deploy"
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
         }
